@@ -5,13 +5,17 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const authController = require('./controllers/auth.js');
 
+// Middleware
+app.use(methodOverride("_method"));
+// Body Parser
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 
 // Routes
-app.get('/', (req, res) => {
-  res.send("Hello Cats!");
-});
+app.use("", authController);
 
 
 
