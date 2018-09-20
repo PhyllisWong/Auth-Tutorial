@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
+
 
 
 const UserSchema = new Schema({
   createdAt : { type: Date },
-  updatedAt: { type: Date },
-  email: { type: String, unique: true},
-  password: { type: String },
-  first: { type: String },
-  last: { type: String }
+  updatedAt : { type: Date },
+  email  : { type: String, unique: true, required: true },
+  password  : { type: String, required: true },
+  first     : { type: String, required: true },
+  last      : { type: String, required: true }
 });
 
 UserSchema.pre('save', function (next) {
@@ -26,8 +27,8 @@ UserSchema.pre('save', function (next) {
   if ( !user.isModified('password')) {
     return next();
   }
-  bcrypt.getSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(user.password, salt, function(err, hash) {
       user.password = hash;
       next();
     })
@@ -35,12 +36,12 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.methods.comparePassword = function(password, done) {
-  bcrypt.compare(password. this.password, function(err, isMatch) {
+  bcrypt.compare(password, this.password, function(err, isMatch) {
     done(err, isMatch);
   });
 };
 
-module.exports = mongoose.model('UserSchema', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
 
 
 

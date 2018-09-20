@@ -1,6 +1,6 @@
 <div class="container">
   <span>
-    <form action="/sign-up" class="signup-form" method="POST">
+    <form action="/sign-up" id="signup" class="signup" method="POST">
       <legend>Register</legend>
 
       <!--Firstname-->
@@ -9,7 +9,7 @@
         <input class="form-control" type="text" name="first" placeholder="First name">
       </div>
 
-      <!--Username-->
+      <!--Lastname-->
       <div class="form-group">
         <label for="last"></label>
         <input class="form-control" type="text" name="last" placeholder="Last name">
@@ -19,7 +19,7 @@
       <!--Username-->
       <div class="form-group">
         <label for="username"></label>
-        <input class="form-control" type="text" name="username" placeholder="Username">
+        <input class="form-control" type="text" name="email" placeholder="Email">
       </div>
 
       <!--Password-->
@@ -29,7 +29,6 @@
       </div>
 
       <!--Button-->
-
       <button class="btn btn-default signup-btn" type="submit">Sign Up</button>
       <a href="/" class="btn btn-default" role="button">Cancel</a>
 

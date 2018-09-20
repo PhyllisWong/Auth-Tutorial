@@ -4,16 +4,24 @@ const app = express();
 const methodOverride = require('method-override');
 const hbs = require('express-handlebars');
 const bcrypt = require('bcryptjs');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const jwt = require('express-jwt');
 const mongoose = require('mongoose');
-const port = process.env.PORT || 3000;
+
+
 require('dotenv').config();
 const secret = process.env.SECRET;
-const authController = require('./controllers/auth');
 
+
+// Port
+const port = process.env.PORT || 3000;
 
 // Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+
 app.use(methodOverride("_method"));
 
 // Handlebars
@@ -21,15 +29,16 @@ app.engine('hbs', hbs({defaultLayout: 'main', extname: 'hbs'}));
 app.set('view engine', 'hbs');
 
 
+
 // static content
 // app.use(express.static('./public'));
 app.use(express.static(__dirname + '/public'));
 // Controllers
+
+const authController = require('./controllers/auth');
 app.use("", authController);
 
-// Body Parser
-// Cookie Parser
-app.use(cookieParser());
+
 app.use(jwt({
   secret: secret,
   audience: 'http://localhost:3000',
@@ -49,12 +58,15 @@ app.use(jwt({
 
 
 //FIXME: Complete Step 2
+mongoose.Promise = global.Promise;
 
 // Mongoose Connection
 const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/jwt-token";
 mongoose.connect(
   mongoUri, { useNewUrlParser: true }
 );
+
+mongoose.set('useCreateIndex', true);
 mongoose.set('debug', true);
 
 // Server

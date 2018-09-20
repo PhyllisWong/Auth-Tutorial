@@ -1,27 +1,24 @@
-$( document ).ready(function() {
-  console.log( "ready!" );
 
-  $("#our-form").submit(function(e) {
-    e.preventDefault();
-    // Get some values from elements on the page:
-    let $form = (this),
-      username = $form.find( "input[name='username']" ).val(),
-      password = $form.find( "input[name='password" ).val(),
-      first = $form.find( "input[first='first" ).val(),
-      last = $form.find( "input[first='last" ).val(),
+  $( document ).ready(() => {
+    $("#signup").submit(function(e) {
+      var form = $(this);
+      var url = form.attr('action');
+      $.post({
+        url: url,
+        data: form.serialize(),
+        success: ( res ) => {
+          Cookies.set('token', res);
+          window.location.href = "/success";
+        }
+      })
+      e.preventDefault();
+    });
 
-      url = $form.attr("action");
+  $('#sign-up-btn').on('click', function(e) {
+    e.preventDefault(); // <= force the form to not redirect
 
-    // Send the data using post
-    let posting = $.post( '/sign-up', { username: username, password: password, first: first, last: last } );
-
-    Cookies.set('token', posting);
-    // To redirect add:
-    window.location.href = "/";
+    location.href = "/sucess";
   });
 
-});
 
-document.getElementById("sign-up-btn").onclick = function () {
-  location.href = "/sign-up";
-};
+
