@@ -6,14 +6,14 @@ const bcrypt = require('bcryptjs');
 const UserSchema = new Schema({
   createdAt : { type: Date },
   updatedAt: { type: Date },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  first: { type: String, required: true },
-  last: { type: String, required: true }
+  email: { type: String, unique: true},
+  password: { type: String },
+  first: { type: String },
+  last: { type: String }
 });
 
 UserSchema.pre('save', function (next) {
-  // SET createdAt AND updaedAt
+  // SET createdAt AND updatedAt
   let now = new Date();
   this.updatedAt = now;
 
@@ -40,7 +40,7 @@ UserSchema.methods.comparePassword = function(password, done) {
   });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('UserSchema', UserSchema);
 
 
 
