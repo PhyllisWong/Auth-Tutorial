@@ -17,6 +17,11 @@ $( document ).ready(function() {
 
     Cookies.set('token', posting);
     // To redirect add:
-    window.location.href = "sign-up";
+    window.location.href = "/";
   });
+
 });
+
+document.getElementById("sign-up-btn").onclick = function () {
+  location.href = "/sign-up";
+};

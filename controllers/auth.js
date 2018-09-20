@@ -6,9 +6,13 @@ const User = require('../models/users');
 
 
 // Routes
+app.get('/', (req, res) => {
+  res.render('button');
+});
+
 app.get('/sign-up', (req, res) => {
   res.render('sign-up');
-})
+});
 
 //FIXME: Find out if this is the process for Step 7
 // ******  POST: sign-up a User  ********
