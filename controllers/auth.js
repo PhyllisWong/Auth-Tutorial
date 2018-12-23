@@ -7,7 +7,7 @@ const User = require('../models/users');
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('button');
+  res.json({"hello": "world"});
 });
 
 app.get('/sign-up', (req, res) => {
